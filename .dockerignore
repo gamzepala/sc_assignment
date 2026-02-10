@@ -1,0 +1,44 @@
+# Docker ignore file - excludes files from Docker build context
+# This speeds up builds and reduces image size
+
+# Build outputs
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Logs
+logs/
+*.log
+
+# Environment files (we copy .env.example explicitly)
+.env
+
+# Documentation
+*.md
+!README.md
+
+# CI/CD
+.github/
+
+# Test reports (generated inside container)
+cucumber-reports/
+surefire-reports/
