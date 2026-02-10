@@ -4,6 +4,7 @@ Feature: Shopping Cart Management
   I want to manage shopping carts
   So that users can add products to their carts
 
+  @C57
   Scenario: Create a new cart with an existing product
     Given I have a valid user ID 1
     And I have an existing product ID 1
@@ -16,6 +17,7 @@ Feature: Shopping Cart Management
     And the cart structure should be valid
     And the response time should be less than 3000 milliseconds
 
+  @C58
   Scenario: Retrieve user's cart and validate structure
     Given I have a user with ID 1
     When I retrieve carts for the user

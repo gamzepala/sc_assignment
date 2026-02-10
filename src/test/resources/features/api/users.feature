@@ -4,6 +4,7 @@ Feature: User Management
   I want to manage users
   So that I can perform CRUD operations on user accounts
 
+  @C61
   Scenario: Delete an existing user
     Given I have an existing user with ID 1
     When I send a DELETE request for the user
@@ -12,6 +13,7 @@ Feature: User Management
     And the deleted user object should be returned
     And the response time should be less than 3000 milliseconds
 
+  @C62
   Scenario: Retrieve a user and validate their information
     Given I want to retrieve user with ID 1
     When I send a GET request to users endpoint

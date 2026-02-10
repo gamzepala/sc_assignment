@@ -27,7 +27,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
                 "json:target/cucumber-reports/api/cucumber.json, " +
                 "junit:target/cucumber-reports/api/cucumber.xml")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME,
-        value = "com.spritecloud.api.steps,com.spritecloud.api.hooks")
+        value = "com.spritecloud.api.steps,com.spritecloud.api.hooks,com.spritecloud.api.testrail")
 @ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME,
         value = "@API and not @Ignore")
 @ConfigurationParameter(key = PLUGIN_PUBLISH_QUIET_PROPERTY_NAME,

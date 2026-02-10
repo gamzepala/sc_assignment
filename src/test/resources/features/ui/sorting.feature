@@ -9,23 +9,27 @@ Feature: SauceDemo Product Sorting
     And I login as a standard user
     And I am on the inventory page
 
+  @C67
   Scenario: Sort products by name Z to A
     When I sort products by "Name (Z to A)"
     Then the products should be displayed in reverse alphabetical order
     And the first product should be "Test.allTheThings() T-Shirt (Red)"
     And the last product should be "Sauce Labs Backpack"
 
+  @C68
   Scenario: Sort products by name A to Z (default)
     When I sort products by "Name (A to Z)"
     Then the products should be displayed in alphabetical order
     And the first product should be "Sauce Labs Backpack"
     And the last product should be "Test.allTheThings() T-Shirt (Red)"
 
+  @C69
   Scenario: Sort products by price low to high
     When I sort products by "Price (low to high)"
     Then the products should be sorted by price ascending
     And the first product price should be lower than the last product price
 
+  @C70
   Scenario: Sort products by price high to low
     When I sort products by "Price (high to low)"
     Then the products should be sorted by price descending

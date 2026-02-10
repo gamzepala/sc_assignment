@@ -4,7 +4,7 @@ Feature: Product Management
   I want to retrieve product information
   So that I can display products to users
 
-  @Smoke
+  @Smoke @C59
   Scenario: Get a product and validate its content
     Given I request product with ID 1
     When I send a GET request to products endpoint
@@ -18,6 +18,7 @@ Feature: Product Management
     And the product should have valid rating information
     And the response time should be less than 3000 milliseconds
 
+  @C60
   Scenario: Retrieve all products and validate list structure
     Given I want to retrieve all products
     When I send a GET request to products endpoint

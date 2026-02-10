@@ -4,7 +4,7 @@ Feature: User Authentication
   I want to authenticate users
   So that I can access protected resources
 
-  @Smoke
+  @Smoke @C56
   Scenario: Successful user login with valid credentials
     Given I have valid user credentials
     When I send a login request
