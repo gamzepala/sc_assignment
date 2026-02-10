@@ -64,19 +64,6 @@ This supports:
 
 ---
 
-## Known Limitations & Considerations
-
-The API used in this assignment is protected by Cloudflare, which may block automated requests in CI environments and return HTTP 403 responses.
-
-In real projects, this would typically be addressed by:
-- Using controlled test environments
-- API mocking
-- Self-hosted runners
-
-For this assignment, local execution is considered the reliable reference.
-
----
-
 ## Mock API Server Solution
 
 ### The Problem
