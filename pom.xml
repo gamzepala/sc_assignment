@@ -29,6 +29,7 @@
         <json-schema-validator.version>5.4.0</json-schema-validator.version>
         <dotenv.version>3.0.0</dotenv.version>
         <lombok.version>1.18.32</lombok.version>
+        <wiremock.version>3.3.1</wiremock.version>
 
         <!-- Plugin Versions -->
         <maven-surefire.version>3.2.5</maven-surefire.version>
@@ -132,6 +133,14 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
+        </dependency>
+
+        <!-- WireMock for API Mocking in CI/CD -->
+        <dependency>
+            <groupId>org.wiremock</groupId>
+            <artifactId>wiremock-standalone</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

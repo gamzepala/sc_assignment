@@ -62,11 +62,17 @@ public abstract class BaseApiService {
     /**
      * Constructs a BaseApiService and configures RestAssured.
      * Loads configuration and sets up the base URL for API requests.
+     * Uses mock API server in CI/CD environments, real API in local development.
      */
     public BaseApiService() {
         this.config = ConfigurationManager.getInstance();
-        this.baseUrl = config.getApiBaseUrl();
+        // Use mock API in CI/CD (when MOCK_API=true), real API locally
+        this.baseUrl = config.isMockApiEnabled()
+            ? config.getMockApiUrl()
+            : config.getApiBaseUrl();
         configureRestAssured();
+        logger.info("API Service initialized with base URL: {} (Mock mode: {})",
+            baseUrl, config.isMockApiEnabled());
     }
 
     /**

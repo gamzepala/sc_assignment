@@ -77,6 +77,44 @@ For this assignment, local execution is considered the reliable reference.
 
 ---
 
+## Mock API Server Solution
+
+### The Problem
+FakeStoreAPI is protected by Cloudflare, which blocks automated requests from GitHub Actions runners. This caused all API tests to fail with 403 errors in CI/CD, even though they work perfectly on local machines.
+
+### The Solution
+I implemented a WireMock mock server that mimics the real FakeStoreAPI behavior. The framework automatically uses the mock server in CI/CD environments and the real API locally.
+
+**How does it work?**
+- When running locally: tests hit the real API at `https://fakestoreapi.com`
+- When running in GitHub Actions: tests hit a local mock server at `http://localhost:8089`
+- The switch happens automatically based on the `MOCK_API` environment variable
+- No changes to test code were needed
+
+### Running Tests with Mock Server
+
+```bash
+# Use mock server (simulates CI/CD environment)
+MOCK_API=true mvn test -Dtest=ApiTestRunner
+
+# Use real API (default behavior)
+mvn test -Dtest=ApiTestRunner
+```
+
+### What This Achieves
+
+**Solves the CI/CD blocker**: Tests now pass in GitHub Actions without 403 errors
+
+**Maintains test quality**: The mock server returns the same responses as the real API, so tests validate the same behavior
+
+**No test changes needed**: The same test code runs in both environments
+
+**Uses industry standards**: WireMock is a widely-used professional tool for API testing
+
+The mock server includes all endpoints used in the test suite (authentication, products, users, and carts) with realistic response data matching the actual FakeStoreAPI schema.
+
+---
+
 ## Project Structure
 ```
 .
