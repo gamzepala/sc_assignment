@@ -106,131 +106,23 @@ The mock server includes all endpoints used in the test suite (authentication, p
 
 ### Professional Test Management
 
-This framework integrates with **TestRail** for professional test case management and result reporting. TestRail is an industry-standard test management tool used by QA teams worldwide.
+This framework integrates with **TestRail** for  test case management and result reporting. Test cases are managed in TestRail through an automated integration that uses the TestRail API, allowing test case management and result reporting directly from the CI/CD pipeline.
 
-**What does it do?**
-- Automatically creates test cases in TestRail from feature files
-- Reports test execution results after each CI/CD run
-- Provides traceability between Cucumber scenarios and TestRail test cases
+**Key Features:**
+- Test cases are automatically managed through TestRail API integration
+- Test execution results are reported directly from the pipeline
+- Provides traceability between test cases and test runs
 - Generates test run reports and metrics in TestRail dashboard
+- TestRail instance: https://scassignment.testrail.io
 
-### Setup TestRail Integration
-
-**1. Configure Environment Variables**
-
-Set these environment variables (or add to GitHub Secrets for CI/CD):
+### Running Tests with TestRail Reporting
 
 ```bash
-export TESTRAIL_ENABLED=true
-export TESTRAIL_URL=https://scassignment.testrail.io
-export TESTRAIL_USERNAME=your-email@example.com
-export TESTRAIL_API_KEY=your-api-key-here
-export TESTRAIL_PROJECT_ID=2
-```
-
-**2. Create Test Cases in TestRail** (One-time setup)
-
-Run the sync utility to create test cases from your feature files:
-
-```bash
-# Make sure TestRail credentials are set (or use .env file)
+# Sync test cases to TestRail
 mvn exec:java -Dexec.mainClass="com.spritecloud.testrail.TestRailSync"
-```
 
-This will:
-- Create an "API Test Automation" suite in TestRail
-- Create test cases for each Cucumber scenario
-- Output TestRail case IDs that you should add as tags
-
-**3. Add TestRail IDs to Feature Files**
-
-After running the sync utility, add the @C<id> tags to your scenarios:
-
-```gherkin
-@API @Authentication @Smoke @C101
-Scenario: Successful user login
-  Given I have valid credentials
-  ...
-```
-
-**4. Run Tests with TestRail Reporting**
-
-```bash
-# Local execution with TestRail reporting
+# Run tests with TestRail reporting enabled
 TESTRAIL_ENABLED=true mvn test -Dtest=ApiTestRunner
-```
-
-Results will be automatically published to TestRail!
-
-### CI/CD Integration
-
-In GitHub Actions, TestRail credentials are stored as secrets:
-- `TESTRAIL_URL`
-- `TESTRAIL_USERNAME`
-- `TESTRAIL_API_KEY`
-- `TESTRAIL_PROJECT_ID`
-
-Every pipeline run creates a new test run in TestRail and reports all results automatically.
-
-### Benefits
-
-✅ **Professional workflow**: Demonstrates enterprise-grade test management
-✅ **Traceability**: Link test cases to requirements and defects
-✅ **Reporting**: Rich dashboards and metrics in TestRail
-✅ **Stakeholder visibility**: Non-technical stakeholders can view test results
-✅ **Historical data**: Track test stability and trends over time
-
----
-
-## Project Structure
-```
-.
-├── .github
-│   └── workflows
-│       └── test-automation.yml
-│
-├── src
-│   ├── main
-│   │   └── java
-│   │       └── com
-│   │           └── spritecloud
-│   │               ├── config
-│   │               ├── models
-│   │               │   ├── api
-│   │               │   └── ui
-│   │               ├── pages
-│   │               ├── services
-│   │               └── utils
-│   │
-│   └── test
-│       ├── java
-│       │   └── com
-│       │       └── spritecloud
-│       │           ├── api
-│       │           │   ├── hooks
-│       │           │   ├── runners
-│       │           │   └── steps
-│       │           ├── ui
-│       │           │   ├── hooks
-│       │           │   ├── runners
-│       │           │   └── steps
-│       │           └── runners
-│       │
-│       └── resources
-│           ├── config
-│           └── features
-│               ├── api
-│               └── ui
-│
-├── wiki
-│   ├── Architecture.md
-│   ├── Installation.md
-│   ├── Testing.md
-│   └── Usage.md
-│
-├── Dockerfile
-├── pom.xml
-└── README.md
 ```
 
 ---
