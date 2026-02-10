@@ -83,8 +83,14 @@ jobs:
       - name: Execute API test suite
         env:
           MOCK_API: "true"  # Enable WireMock mock server to bypass Cloudflare protection
+          TESTRAIL_ENABLED: "true"  # Enable TestRail result reporting
+          TESTRAIL_URL: ${{ secrets.TESTRAIL_URL }}
+          TESTRAIL_USERNAME: ${{ secrets.TESTRAIL_USERNAME }}
+          TESTRAIL_API_KEY: ${{ secrets.TESTRAIL_API_KEY }}
+          TESTRAIL_PROJECT_ID: ${{ secrets.TESTRAIL_PROJECT_ID }}
         run: |
           echo "🚀 Running API tests with WireMock mock server (Cloudflare bypass)"
+          echo "📊 TestRail reporting enabled"
           if [[ "${{ github.event.inputs.test_suite }}" == "smoke" ]]; then
             echo "Running smoke tests..."
             mvn clean test -Psmoke

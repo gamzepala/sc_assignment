@@ -9,7 +9,7 @@ Feature: SauceDemo Shopping Cart and Checkout
     And I login as a standard user
     And I am on the inventory page
 
-  @E2E @Smoke
+  @E2E @Smoke @C65
   Scenario: Complete checkout with two items and validate final price
     When I add the following products to cart:
       | Sauce Labs Backpack     |
@@ -28,7 +28,7 @@ Feature: SauceDemo Shopping Cart and Checkout
     Then I should see order confirmation
     And the confirmation should say "Thank you for your order"
 
-  @E2E
+  @E2E @C66
   Scenario: Complete checkout with multiple items
     When I add the following products to cart:
       | Sauce Labs Backpack           |

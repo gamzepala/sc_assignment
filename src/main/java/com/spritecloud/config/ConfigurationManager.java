@@ -25,6 +25,13 @@ public class ConfigurationManager {
     private static final String LOG_LEVEL_KEY = "LOG_LEVEL";
     private static final String MOCK_API_KEY = "MOCK_API";
 
+    // TestRail Configuration Keys
+    private static final String TESTRAIL_ENABLED_KEY = "TESTRAIL_ENABLED";
+    private static final String TESTRAIL_URL_KEY = "TESTRAIL_URL";
+    private static final String TESTRAIL_USERNAME_KEY = "TESTRAIL_USERNAME";
+    private static final String TESTRAIL_API_KEY_KEY = "TESTRAIL_API_KEY";
+    private static final String TESTRAIL_PROJECT_ID_KEY = "TESTRAIL_PROJECT_ID";
+
     // Default Values
     private static final String DEFAULT_API_BASE_URL = "https://fakestoreapi.com";
     private static final String DEFAULT_UI_BASE_URL = "https://www.saucedemo.com";
@@ -33,6 +40,11 @@ public class ConfigurationManager {
     private static final String DEFAULT_ENVIRONMENT = "test";
     private static final String DEFAULT_LOG_LEVEL = "INFO";
     private static final String DEFAULT_MOCK_API = "false";
+
+    // TestRail Default Values
+    private static final String DEFAULT_TESTRAIL_ENABLED = "false";
+    private static final String DEFAULT_TESTRAIL_URL = "";
+    private static final String DEFAULT_TESTRAIL_PROJECT_ID = "0";
 
     private ConfigurationManager() {
         try {
@@ -136,6 +148,47 @@ public class ConfigurationManager {
      */
     public String getMockApiUrl() {
         return "http://localhost:8089";
+    }
+
+    // TestRail Configuration
+    /**
+     * Check if TestRail integration is enabled
+     * @return true if TESTRAIL_ENABLED environment variable is set to true
+     */
+    public boolean isTestRailEnabled() {
+        return Boolean.parseBoolean(getConfigValue(TESTRAIL_ENABLED_KEY, DEFAULT_TESTRAIL_ENABLED));
+    }
+
+    /**
+     * Get TestRail URL
+     * @return TestRail instance URL
+     */
+    public String getTestRailUrl() {
+        return getConfigValue(TESTRAIL_URL_KEY, DEFAULT_TESTRAIL_URL);
+    }
+
+    /**
+     * Get TestRail username
+     * @return TestRail username (email)
+     */
+    public String getTestRailUsername() {
+        return getConfigValue(TESTRAIL_USERNAME_KEY, "");
+    }
+
+    /**
+     * Get TestRail API key
+     * @return TestRail API key
+     */
+    public String getTestRailApiKey() {
+        return getConfigValue(TESTRAIL_API_KEY_KEY, "");
+    }
+
+    /**
+     * Get TestRail project ID
+     * @return TestRail project ID
+     */
+    public int getTestRailProjectId() {
+        return Integer.parseInt(getConfigValue(TESTRAIL_PROJECT_ID_KEY, DEFAULT_TESTRAIL_PROJECT_ID));
     }
 
     /**
