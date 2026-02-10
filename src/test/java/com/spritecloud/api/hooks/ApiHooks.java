@@ -1,9 +1,12 @@
 package com.spritecloud.api.hooks;
 
+import com.spritecloud.api.mock.MockApiServer;
 import com.spritecloud.api.steps.TestContext;
 import com.spritecloud.config.ConfigurationManager;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.Scenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,38 @@ public class ApiHooks {
     private static final Logger logger = LoggerFactory.getLogger(ApiHooks.class);
     private final TestContext context;
     private final ConfigurationManager config;
+
+    /**
+     * Starts the mock API server before all API tests (once per test run).
+     * Only starts if MOCK_API environment variable is set to true.
+     * This enables tests to run in CI/CD environments where Cloudflare blocks requests.
+     */
+    @BeforeAll
+    public static void startMockServer() {
+        ConfigurationManager config = ConfigurationManager.getInstance();
+        if (config.isMockApiEnabled()) {
+            logger.info("========================================");
+            logger.info("Mock API mode is ENABLED - starting WireMock server");
+            logger.info("This bypasses Cloudflare protection in CI/CD");
+            MockApiServer.start();
+            logger.info("Mock server started at: {}", config.getMockApiUrl());
+            logger.info("========================================");
+        } else {
+            logger.info("Mock API mode is DISABLED - using real API at: {}", config.getApiBaseUrl());
+        }
+    }
+
+    /**
+     * Stops the mock API server after all API tests complete.
+     */
+    @AfterAll
+    public static void stopMockServer() {
+        if (MockApiServer.isRunning()) {
+            logger.info("Stopping mock API server");
+            MockApiServer.stop();
+            logger.info("Mock API server stopped successfully");
+        }
+    }
 
     /**
      * Constructs ApiHooks with shared test context.

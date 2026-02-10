@@ -23,6 +23,7 @@ public class ConfigurationManager {
     private static final String TIMEOUT_KEY = "TIMEOUT";
     private static final String ENVIRONMENT_KEY = "ENVIRONMENT";
     private static final String LOG_LEVEL_KEY = "LOG_LEVEL";
+    private static final String MOCK_API_KEY = "MOCK_API";
 
     // Default Values
     private static final String DEFAULT_API_BASE_URL = "https://fakestoreapi.com";
@@ -31,6 +32,7 @@ public class ConfigurationManager {
     private static final String DEFAULT_TIMEOUT = "30000";
     private static final String DEFAULT_ENVIRONMENT = "test";
     private static final String DEFAULT_LOG_LEVEL = "INFO";
+    private static final String DEFAULT_MOCK_API = "false";
 
     private ConfigurationManager() {
         try {
@@ -116,6 +118,24 @@ public class ConfigurationManager {
 
     public String getLogLevel() {
         return getConfigValue(LOG_LEVEL_KEY, DEFAULT_LOG_LEVEL);
+    }
+
+    // Mock API Configuration
+    /**
+     * Check if mock API mode is enabled
+     * Used in CI/CD environments where real API is blocked by Cloudflare
+     * @return true if MOCK_API environment variable is set to true
+     */
+    public boolean isMockApiEnabled() {
+        return Boolean.parseBoolean(getConfigValue(MOCK_API_KEY, DEFAULT_MOCK_API));
+    }
+
+    /**
+     * Get the mock API server URL
+     * @return mock server base URL (localhost:8089)
+     */
+    public String getMockApiUrl() {
+        return "http://localhost:8089";
     }
 
     /**

@@ -78,10 +78,13 @@ jobs:
         run: mvn clean install -DskipTests
 
       # ==========================================
-      # STEP 6: Run API Tests
+      # STEP 6: Run API Tests with Mock Server
       # ==========================================
       - name: Execute API test suite
+        env:
+          MOCK_API: "true"  # Enable WireMock mock server to bypass Cloudflare protection
         run: |
+          echo "🚀 Running API tests with WireMock mock server (Cloudflare bypass)"
           if [[ "${{ github.event.inputs.test_suite }}" == "smoke" ]]; then
             echo "Running smoke tests..."
             mvn clean test -Psmoke
@@ -98,12 +101,11 @@ jobs:
             echo "Running API tests (default)..."
             mvn test -Dtest=ApiTestRunner
           fi
-        continue-on-error: true  # Cloudflare blocks GitHub Actions IPs - tests pass locally
 
-      # NOTE: FakeStoreAPI uses Cloudflare bot protection that blocks GitHub Actions
-      # IP ranges regardless of browser headers. Tests execute successfully locally
-      # (9/9 passing). This is a known limitation with Cloudflare's managed challenge
-      # mode and cloud-hosted CI/CD environments.
+      # NOTE: WireMock mock server is used in CI/CD to bypass Cloudflare protection.
+      # Local execution uses real FakeStoreAPI (MOCK_API not set or set to false).
+      # Mock server provides identical API responses to ensure tests validate the
+      # same behavior in both environments.
 
       # ==========================================
       # STEP 7: Upload Cucumber HTML Reports
