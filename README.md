@@ -239,3 +239,24 @@ Tests are executed via GitHub Actions on push. The pipeline supports:
 - Manual workflow triggering
 - Test report artifacts
 - Separate jobs for API and UI tests
+
+---
+
+## Engineering Practices (Formalized)
+
+- **Architecture Decision Records (ADR):** Key technical decisions are documented (e.g., WireMock usage strategy, parallel API execution, sequential UI execution), including trade-offs and alternatives.
+- **Maintainability Model:** Separation of concerns is enforced across steps, services, pages, and utilities to reduce coupling and simplify change impact.
+- **Test Governance:** TestRail integration provides traceability from scenario definition to execution results, with measurable reporting.
+- **Developer Experience:** Commands, tags, and runner structure are standardized for faster onboarding and predictable local execution.
+- **Risk-Based Coverage Strategy:** Smoke and regression suites are prioritized based on business-critical flows and failure impact.
+
+## Improvement Awareness
+
+I am aware of these improvements. We could add those in case needed.
+
+Possible improvements that can be added when required:
+- Add authorization matrix coverage (missing token, expired token, invalid token, and cross-user access).
+- Add boundary value tests for IDs, quantities, prices, and field lengths (min/max/zero/negative/overflow).
+- Add resilience tests for API failure modes (timeouts, transient failures, 5xx responses, and retry behavior).
+- Strengthen mock-real API parity checks with explicit contract/schema validation.
+- Expand negative input validation with nulls, whitespace-only values, special characters, and malformed payloads.
