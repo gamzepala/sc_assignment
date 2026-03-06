@@ -57,6 +57,10 @@ public class InventoryPage extends BasePage {
         logger.info("Inventory page loaded");
     }
 
+    public String getPageTitle() {
+        return getText(".title");
+    }
+
     /**
      * Gets all products displayed on the page.
      *

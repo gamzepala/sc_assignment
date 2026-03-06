@@ -1,14 +1,20 @@
 package com.spritecloud.ui.steps;
 
+import com.spritecloud.pages.InventoryPage;
 import com.spritecloud.ui.TestContext;
 import com.spritecloud.utils.AssertionUtils;
+
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static io.restassured.RestAssured.patch;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Step definitions for SauceDemo login scenarios.
@@ -77,4 +83,23 @@ public class LoginSteps {
                 .contains("inventory.html");
         logger.info("Confirmed on inventory page");
     }
+
+    @Then("I should be redirected to the product inventory page")
+    public void i_should_be_redirected_to_the_product_inventory_page() {
+        InventoryPage inventoryPage = new InventoryPage(context.getPage());
+        inventoryPage.waitForInventoryPageLoad();
+        logger.info("Validating redirect to inventory page");
+    }
+
+    @Then("I should see the product inventory page title {string}")
+    public void iShouldSeeTheProductInventoryPageTitle(String expectedTitle) {
+        InventoryPage inventoryPage = new InventoryPage(context.getPage());
+        assertEquals(expectedTitle, inventoryPage.getPageTitle(), 
+                     "Page title should match expected value");
+        logger.info("Validating inventory page title is: {}", expectedTitle);
+    }
+
+   
+
+
 }
